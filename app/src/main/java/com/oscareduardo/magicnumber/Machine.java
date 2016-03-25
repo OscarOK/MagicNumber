@@ -39,4 +39,12 @@ public class Machine {
         Snackbar.make(v, R.string.youWon, Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show();
     }
+
+    public String eraseOne(String string) {
+        if (string != null && string.length() > 0) {
+            string = string.substring(0, string.length()-1);
+        }
+
+        return string;
+    }
 }

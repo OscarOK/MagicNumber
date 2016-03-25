@@ -13,7 +13,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Machine machine = new Machine();
     private int possibleNumber, magicNumber;
     private Button buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix,
-            buttonSeven, buttonEight, buttonNine, buttonZero, buttonDelete, buttonReady;
+            buttonSeven, buttonEight, buttonNine, buttonZero, buttonDelete, buttonReady,
+            buttonErase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonNine.setOnClickListener(this);
         buttonZero = (Button) findViewById(R.id.buttonZero);
         buttonZero.setOnClickListener(this);
+        buttonErase = (Button) findViewById(R.id.buttonErase);
+        buttonErase.setOnClickListener(this);
         buttonDelete = (Button) findViewById(R.id.buttonDelete);
         buttonDelete.setOnClickListener(this);
         buttonReady = (Button) findViewById(R.id.buttonReady);
@@ -99,9 +102,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     textViewNumber.setText(possible + "0");
                     break;
 
+                case R.id.buttonErase:
+                    possible = machine.eraseOne(possible);
+                    textViewNumber.setText(possible);
+                    break;
+
                 case R.id.buttonDelete:
                     textViewNumber.setText("");
-                    break;
 
                 case R.id.buttonReady:
                     possibleNumber = Integer.parseInt(textViewNumber.getText().toString());
