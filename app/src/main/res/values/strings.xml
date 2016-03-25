@@ -2,6 +2,11 @@
     <string name="app_name">Magic Number</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Messages -->
+    <string name="toBig">Very Big</string>
+    <string name="toSmall">Very Small</string>
+    <string name="youWon">YOU WON!</string>
+
     <!-- Keyboard Numbers -->
     <string name="key_zero">0</string>
     <string name="key_one">1</string>

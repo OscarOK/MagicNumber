@@ -1,19 +1,19 @@
 package com.oscareduardo.magicnumber;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewNumber;
-    Machine machine = new Machine();
-    int possibleNumber;
-    int magicNumber = machine.generateRandomNumber(100);
-    String possible = "0";
+    private Machine machine = new Machine();
+    private int possibleNumber, magicNumber;
+    private Button buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix,
+            buttonSeven, buttonEight, buttonNine, buttonZero, buttonDelete, buttonReady;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,103 +21,108 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         textViewNumber = (TextView) findViewById(R.id.textViewNumber);
-    }
 
+        magicNumber = machine.generateRandomNumber(100);
+        Log.i("Magic Number", "" + magicNumber);
 
-
-
-    @Override
-    public void setButtonOne(View v) {
-        possible += "1";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
-
-    @Override
-    public void setButtonTwo(View v) {
-        possible += "2";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
-
-    @Override
-    public void setButtonThree(View v) {
-        possible += "3";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
-
-    @Override
-    public void setButtonFour(View v) {
-        possible += "4";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
+        buttonOne = (Button) findViewById(R.id.buttonOne);
+        buttonOne.setOnClickListener(this);
+        buttonTwo = (Button) findViewById(R.id.buttonTwo);
+        buttonTwo.setOnClickListener(this);
+        buttonThree = (Button) findViewById(R.id.buttonThree);
+        buttonThree.setOnClickListener(this);
+        buttonFour = (Button) findViewById(R.id.buttonFour);
+        buttonFour.setOnClickListener(this);
+        buttonFive = (Button) findViewById(R.id.buttonFive);
+        buttonFive.setOnClickListener(this);
+        buttonSix = (Button) findViewById(R.id.buttonSix);
+        buttonSix.setOnClickListener(this);
+        buttonSeven = (Button) findViewById(R.id.buttonSeven);
+        buttonSeven.setOnClickListener(this);
+        buttonEight = (Button) findViewById(R.id.buttonEight);
+        buttonEight.setOnClickListener(this);
+        buttonNine = (Button) findViewById(R.id.buttonNine);
+        buttonNine.setOnClickListener(this);
+        buttonZero = (Button) findViewById(R.id.buttonZero);
+        buttonZero.setOnClickListener(this);
+        buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonDelete.setOnClickListener(this);
+        buttonReady = (Button) findViewById(R.id.buttonReady);
+        buttonReady.setOnClickListener(this);
     }
 
     @Override
-    public void setButtonFive(View v) {
-        possible += "5";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
+    public void onClick(View v) {
+        int idButton = v.getId();
+        String possible = textViewNumber.getText().toString();
 
-    @Override
-    public void setButtonSix(View v) {
-        possible += "6";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
+        try {
+            switch (idButton) {
+                case R.id.buttonOne:
+                    textViewNumber.setText(possible + "1");
+                    break;
 
-    @Override
-    public void setButtonSeven(View v) {
-        possible += "7";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
+                case R.id.buttonTwo:
+                    textViewNumber.setText(possible + "2");
+                    break;
 
-    @Override
-    public void setButtonEight(View v) {
-        possible += "8";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
+                case R.id.buttonThree:
+                    textViewNumber.setText(possible + "3");
+                    break;
 
-    @Override
-    public void setButtonNine(View v) {
-        possible += "9";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
+                case R.id.buttonFour:
+                    textViewNumber.setText(possible + "4");
+                    break;
 
-    @Override
-    public void setButtonZero(View v) {
-        possible += "0";
-        textViewNumber.setText(possible);
-        possibleNumber = Integer.parseInt(possible);
-    }
+                case R.id.buttonFive:
+                    textViewNumber.setText(possible + "5");
+                    break;
 
-    @Override
-    public void setButtonErase(View v) {
-        possible = "0";
-        textViewNumber.setText(possible);
-    }
+                case R.id.buttonSix:
+                    textViewNumber.setText(possible + "6");
+                    break;
 
-    @Override
-    public void setButtonReady(View v) {
-        boolean a = machine.checkMagicNumber(magicNumber, possibleNumber);
+                case R.id.buttonSeven:
+                    textViewNumber.setText(possible + "7");
+                    break;
 
-        if (a == false) {
-            setButtonErase(v);
-            machine.getWhere(magicNumber, possibleNumber, v);
-        } else {
-            Snackbar.make(v, "You won!", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                case R.id.buttonEight:
+                    textViewNumber.setText(possible + "8");
+                    break;
 
-            magicNumber = machine.generateRandomNumber(100);
+                case R.id.buttonNine:
+                    textViewNumber.setText(possible + "9");
+                    break;
+
+                case R.id.buttonZero:
+                    textViewNumber.setText(possible + "0");
+                    break;
+
+                case R.id.buttonDelete:
+                    textViewNumber.setText("");
+                    break;
+
+                case R.id.buttonReady:
+                    possibleNumber = Integer.parseInt(textViewNumber.getText().toString());
+
+                    boolean check = machine.checkMagicNumber(magicNumber, possibleNumber);
+
+                    if (check == false) {
+                        textViewNumber.setText("");
+                        machine.getWhere(magicNumber, possibleNumber, v);
+                    } else {
+                        textViewNumber.setText("");
+                        machine.youWonMessage(v);
+                        magicNumber = machine.generateRandomNumber(100);
+                    }
+
+                    Log.i("Magic Number", "" + magicNumber);
+                    Log.i("Possible Number", "" + possibleNumber);
+                    Log.i("Boolean: ", "" + check);
+                    break;
+            }
+        } catch (Exception e) {
+            Log.e("Switch", "ERROR");
         }
-
-        Log.e("Magic Number", "" + magicNumber);
-        Log.e("Possible Number", "" + possibleNumber);
-        Log.e("Boolean: ", "" + a);
     }
 }

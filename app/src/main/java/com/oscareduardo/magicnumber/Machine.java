@@ -27,11 +27,16 @@ public class Machine {
     public void getWhere(int magicNumber, int possible, View v) {
 
         if (possible < magicNumber) {
-            Snackbar.make(v, "Muy Pequeño", Snackbar.LENGTH_LONG)
+            Snackbar.make(v, R.string.toSmall, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         } else if (possible > magicNumber) {
-            Snackbar.make(v, "Muy Grande", Snackbar.LENGTH_LONG)
+            Snackbar.make(v, R.string.toBig, Snackbar.LENGTH_LONG)
                     .setAction("Action", null).show();
         }
+    }
+
+    public void youWonMessage(View v) {
+        Snackbar.make(v, R.string.youWon, Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
     }
 }

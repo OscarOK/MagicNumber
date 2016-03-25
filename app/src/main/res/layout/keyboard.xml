@@ -14,18 +14,15 @@
             android:id="@+id/buttonOne"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="setButtonOne"
             android:text="@string/key_one" />
 
         <Button
             android:id="@+id/buttonTwo"
-            android:onClick="setButtonTwo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/key_two" />
 
         <Button
-            android:onClick="setButtonThree"
             android:id="@+id/buttonThree"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,21 +36,18 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:onClick="setButtonFour"
             android:id="@+id/buttonFour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/key_four" />
 
         <Button
-            android:onClick="setButtonFive"
             android:id="@+id/buttonFive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/key_five" />
 
         <Button
-            android:onClick="setButtonSix"
             android:id="@+id/buttonSix"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,21 +61,18 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:onClick="setButtonSeven"
             android:id="@+id/buttonSeven"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/key_seven" />
 
         <Button
-            android:onClick="setButtonEight"
             android:id="@+id/buttonEight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/key_eight" />
 
         <Button
-            android:onClick="setButtonNine"
             android:id="@+id/buttonNine"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -95,20 +86,18 @@
         android:layout_gravity="center_horizontal">
 
         <Button
-            android:onClick="setButtonErase"
-            android:id="@+id/buttonErase"
+            android:id="@+id/buttonDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <Button
-            android:onClick="setButtonZero"
             android:id="@+id/buttonZero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/key_zero" />
 
         <Button
-            android:onClick="setButtonReady"
+
             android:id="@+id/buttonReady"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
