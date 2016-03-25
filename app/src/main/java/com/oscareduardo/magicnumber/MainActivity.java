@@ -7,7 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements KeyboardInterface {
+public class MainActivity extends AppCompatActivity {
 
     private TextView textViewNumber;
     Machine machine = new Machine();
@@ -22,6 +22,9 @@ public class MainActivity extends AppCompatActivity implements KeyboardInterface
 
         textViewNumber = (TextView) findViewById(R.id.textViewNumber);
     }
+
+
+
 
     @Override
     public void setButtonOne(View v) {

@@ -2,7 +2,6 @@ package com.oscareduardo.magicnumber;
 
 import android.support.design.widget.Snackbar;
 import android.view.View;
-
 import java.util.Random;
 
 public class Machine {
