@@ -2,6 +2,10 @@
     <string name="app_name">Magic Number</string>
     <string name="action_settings">Settings</string>
 
+    <!-- Interface -->
+    <string name="previousNumber">Previous Number:</string>
+    <string name="developer">Developed by OscarOK</string>
+
     <!-- Messages -->
     <string name="toBig">Very Big</string>
     <string name="toSmall">Very Small</string>

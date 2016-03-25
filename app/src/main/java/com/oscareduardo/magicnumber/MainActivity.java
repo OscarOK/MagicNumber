@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView textViewNumber;
+    private TextView textViewNumber, textViewPreviousNumber;
     private Machine machine = new Machine();
     private int possibleNumber, magicNumber;
     private Button buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix,
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         textViewNumber = (TextView) findViewById(R.id.textViewNumber);
+        textViewPreviousNumber = (TextView) findViewById(R.id.textViewPreviousNumber);
 
         magicNumber = machine.generateRandomNumber(100);
         Log.i("Magic Number", "" + magicNumber);
@@ -107,11 +108,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     boolean check = machine.checkMagicNumber(magicNumber, possibleNumber);
 
-                    if (check == false) {
+                    textViewPreviousNumber.setText(
+                            getString(R.string.previousNumber) +
+                                    " " +
+                                    possibleNumber);
+
+                    if (!check) {
                         textViewNumber.setText("");
                         machine.getWhere(magicNumber, possibleNumber, v);
                     } else {
                         textViewNumber.setText("");
+                        textViewPreviousNumber.setText(getString(R.string.previousNumber));
                         machine.youWonMessage(v);
                         magicNumber = machine.generateRandomNumber(100);
                     }
