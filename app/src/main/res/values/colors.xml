@@ -3,4 +3,7 @@
     <color name="colorPrimary">#9c27b0</color>
     <color name="colorPrimaryDark">#7b1fa2</color>
     <color name="colorAccent">#448aff</color>
+    <color name="colorAccentDark">#366ecc</color>
+    <color name="keyboardBackground">#434343</color>
+    <color name="keyboardActions">#636363</color>
 </resources>

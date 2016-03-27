@@ -1,107 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerInParent="true">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_margin="@dimen/fab_margin"
+    android:layout_weight="9"
+    android:orientation="vertical"
+    android:weightSum="4">
 
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+    <LinearLayout style="@style/KeyboardRow">
 
         <Button
             android:id="@+id/buttonOne"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_one" />
 
         <Button
             android:id="@+id/buttonTwo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_two" />
 
         <Button
             android:id="@+id/buttonThree"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_three" />
 
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+    <LinearLayout style="@style/KeyboardRow">
 
         <Button
             android:id="@+id/buttonFour"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_four" />
 
         <Button
             android:id="@+id/buttonFive"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_five" />
 
         <Button
             android:id="@+id/buttonSix"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_six" />
 
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+    <LinearLayout style="@style/KeyboardRow">
 
         <Button
             android:id="@+id/buttonSeven"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_seven" />
 
         <Button
             android:id="@+id/buttonEight"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_eight" />
 
         <Button
             android:id="@+id/buttonNine"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_nine" />
 
-    </TableRow>
+    </LinearLayout>
 
-    <TableRow
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+    <LinearLayout style="@style/KeyboardRow">
 
-        <Button
+        <ImageButton
             android:id="@+id/buttonDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            style="@style/KeyboardRow.Key"
+            android:src="@drawable/ic_clear" />
 
         <Button
             android:id="@+id/buttonZero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/KeyboardRow.Key"
             android:text="@string/key_zero" />
 
-        <Button
-
+        <ImageButton
             android:id="@+id/buttonReady"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            style="@style/KeyboardRow.Key"
+            android:src="@drawable/ic_done" />
 
-    </TableRow>
+    </LinearLayout>
 
-</TableLayout>
+</LinearLayout>

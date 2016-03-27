@@ -4,17 +4,24 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView textViewNumber, textViewPreviousNumber;
     private Machine machine = new Machine();
     private int possibleNumber, magicNumber;
+    String possible;
     private Button buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix,
-            buttonSeven, buttonEight, buttonNine, buttonZero, buttonDelete, buttonReady,
-            buttonErase;
+            buttonSeven, buttonEight, buttonNine, buttonZero;
+    private ImageButton buttonDelete, buttonReady, buttonErase;
+    private LinearLayout linearLayoutNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +33,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         magicNumber = machine.generateRandomNumber(100);
         Log.i("Magic Number", "" + magicNumber);
+
+        final TextView tv = (TextView) findViewById(R.id.textViewDeveloper);
+
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.demo);
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "OSCAR", Toast.LENGTH_SHORT).show();
+                tv.startAnimation(animation);
+            }
+        });
+
+        linearLayoutNumbers = (LinearLayout) findViewById(R.id.linearLayoutContent);
 
         buttonOne = (Button) findViewById(R.id.buttonOne);
         buttonOne.setOnClickListener(this);
@@ -47,18 +68,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonNine.setOnClickListener(this);
         buttonZero = (Button) findViewById(R.id.buttonZero);
         buttonZero.setOnClickListener(this);
-        buttonErase = (Button) findViewById(R.id.buttonErase);
+        buttonErase = (ImageButton) findViewById(R.id.buttonErase);
         buttonErase.setOnClickListener(this);
-        buttonDelete = (Button) findViewById(R.id.buttonDelete);
+        buttonDelete = (ImageButton) findViewById(R.id.buttonDelete);
         buttonDelete.setOnClickListener(this);
-        buttonReady = (Button) findViewById(R.id.buttonReady);
+        buttonReady = (ImageButton) findViewById(R.id.buttonReady);
         buttonReady.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         int idButton = v.getId();
-        String possible = textViewNumber.getText().toString();
+        possible = textViewNumber.getText().toString();
 
         try {
             switch (idButton) {
@@ -99,6 +120,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
 
                 case R.id.buttonZero:
+                    if (!possible.isEmpty())
                     textViewNumber.setText(possible + "0");
                     break;
 
@@ -128,11 +150,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         textViewPreviousNumber.setText(getString(R.string.previousNumber));
                         machine.youWonMessage(v);
                         magicNumber = machine.generateRandomNumber(100);
+                        buttonErase.setVisibility(View.GONE);
+                        linearLayoutNumbers.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPrimary));
                     }
 
                     Log.i("Magic Number", "" + magicNumber);
                     Log.i("Possible Number", "" + possibleNumber);
-                    Log.i("Boolean: ", "" + check);
+                    Log.i("Boolean", "" + check);
                     break;
             }
         } catch (Exception e) {
