@@ -2,14 +2,19 @@
     <string name="app_name">Magic Number</string>
     <string name="action_settings">Settings</string>
 
-    <!-- Interface -->
+    <!-- Main Interface -->
+    <string name="toBig">Very Big</string>
+    <string name="toSmall">Very Small</string>
     <string name="previousNumber">Previous Number:</string>
     <string name="developer">Developed by OscarOK</string>
 
-    <!-- Messages -->
-    <string name="toBig">Very Big</string>
-    <string name="toSmall">Very Small</string>
+    <!-- Victory Fragment Interface -->
     <string name="youWon">YOU WON!</string>
+    <string name="phrase">"Los records están para ser rotos."</string>
+    <string name="time">Time:</string>
+    <string name="tries">Tries:</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="again">Again</string>
 
     <!-- Keyboard Numbers -->
     <string name="key_zero">0</string>

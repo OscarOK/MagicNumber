@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="24dp">
+
+    <TextView
+        android:id="@+id/textViewYouWon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="#e91e63"
+        android:gravity="center_horizontal"
+        android:padding="20dp"
+        android:text="@string/youWon"
+        android:textSize="40sp" />
+
+    <TextView
+        android:id="@+id/textViewPhrase"
+        style="@style/VictoryFragmentTextView"
+        android:layout_below="@+id/textViewYouWon"
+        android:text="@string/phrase"
+        android:textAllCaps="true" />
+
+    <TextView
+        android:id="@+id/textViewTime"
+        style="@style/VictoryFragmentTextView"
+        android:layout_below="@+id/textViewPhrase"
+        android:text="@string/time" />
+
+    <TextView
+        android:id="@+id/textViewTries"
+        style="@style/VictoryFragmentTextView"
+        android:layout_below="@+id/textViewTime"
+        android:text="@string/tries" />
+
+    <Button
+        android:id="@+id/buttonAgain"
+        style="@style/VictoryFragmentButton"
+        android:layout_alignParentRight="true"
+        android:gravity="right|center"
+        android:layout_below="@+id/textViewTries"
+        android:text="@string/again" />
+
+    <Button
+        android:id="@+id/buttonLeaderboard"
+        style="@style/VictoryFragmentButton"
+        android:gravity="left|center"
+        android:layout_below="@+id/textViewTries"
+        android:text="@string/leaderboard" />
+
+</RelativeLayout>

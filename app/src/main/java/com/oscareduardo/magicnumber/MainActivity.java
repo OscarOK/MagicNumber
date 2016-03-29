@@ -8,7 +8,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,12 +16,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private TextView textViewNumber, textViewPreviousNumber;
     private Machine machine = new Machine();
-    private int possibleNumber, magicNumber;
-    String possible;
+    private int possibleNumber, magicNumber, tries;
+    private String possible;
     private Button buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix,
             buttonSeven, buttonEight, buttonNine, buttonZero;
     private ImageButton buttonDelete, buttonReady, buttonErase;
-    private LinearLayout linearLayoutNumbers;
+    private RelativeLayout relativeLayoutNumbers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "OSCAR", Toast.LENGTH_SHORT).show();
+                animation.setDuration(2000);
                 tv.startAnimation(animation);
             }
         });
 
-        linearLayoutNumbers = (LinearLayout) findViewById(R.id.linearLayoutContent);
+        tries = 1;
+
+        relativeLayoutNumbers = (RelativeLayout) findViewById(R.id.relativeLayoutNumbers);
 
         buttonOne = (Button) findViewById(R.id.buttonOne);
         buttonOne.setOnClickListener(this);
@@ -74,14 +77,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonDelete.setOnClickListener(this);
         buttonReady = (ImageButton) findViewById(R.id.buttonReady);
         buttonReady.setOnClickListener(this);
+
+
     }
 
     @Override
     public void onClick(View v) {
         int idButton = v.getId();
         possible = textViewNumber.getText().toString();
+        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.demo);
+    animation.setDuration(1000);
+        textViewPreviousNumber.startAnimation(animation);
 
         try {
+
+            if (possible.isEmpty()) {
+                buttonErase.setVisibility(View.GONE);
+                textViewPreviousNumber.setVisibility(View.GONE);
+            } else {
+                buttonErase.setVisibility(View.VISIBLE);
+                textViewPreviousNumber.setVisibility(View.VISIBLE);
+            }
+
             switch (idButton) {
                 case R.id.buttonOne:
                     textViewNumber.setText(possible + "1");
@@ -145,13 +162,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if (!check) {
                         textViewNumber.setText("");
                         machine.getWhere(magicNumber, possibleNumber, v);
+                        tries++;
                     } else {
                         textViewNumber.setText("");
                         textViewPreviousNumber.setText(getString(R.string.previousNumber));
+
+                        FragmentHelper fragmentHelpers = new FragmentHelper(this);
+
+                        fragmentHelpers.createLoginDialogo(this, tries).show();
                         machine.youWonMessage(v);
                         magicNumber = machine.generateRandomNumber(100);
+                        tries = 1;
                         buttonErase.setVisibility(View.GONE);
-                        linearLayoutNumbers.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                        relativeLayoutNumbers.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPrimary));
                     }
 
                     Log.i("Magic Number", "" + magicNumber);
