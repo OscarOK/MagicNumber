@@ -6,4 +6,6 @@
     <color name="colorAccentDark">#366ecc</color>
     <color name="keyboardBackground">#434343</color>
     <color name="keyboardActions">#636363</color>
+    <color name="colorToastBig">#8bc34a</color>
+    <color name="colorToastSmall">#f44336</color>
 </resources>

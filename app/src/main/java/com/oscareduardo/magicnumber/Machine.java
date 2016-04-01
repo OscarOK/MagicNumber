@@ -1,7 +1,5 @@
 package com.oscareduardo.magicnumber;
 
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import java.util.Random;
 
 public class Machine {
@@ -24,27 +22,27 @@ public class Machine {
         return itIs;
     }
 
-    public void getWhere(int magicNumber, int possible, View v) {
-
-        if (possible < magicNumber) {
-            Snackbar.make(v, R.string.toSmall, Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        } else if (possible > magicNumber) {
-            Snackbar.make(v, R.string.toBig, Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
-        }
-    }
-
-    public void youWonMessage(View v) {
-        Snackbar.make(v, R.string.youWon, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
-    }
-
     public String eraseOne(String string) {
         if (string != null && string.length() > 0) {
             string = string.substring(0, string.length()-1);
         }
 
         return string;
+    }
+
+    public String makeTime(long timeElapsed) {
+        String time;
+
+        int hours = (int) (timeElapsed / 3600000);
+        int minutes = (int) (timeElapsed - hours * 3600000) / 60000;
+        int seconds = (int) (timeElapsed - hours * 3600000 - minutes * 60000) / 1000;
+
+        if (minutes < 10) time = "0" + minutes;
+        else time = "" + minutes;
+
+        if (seconds < 10) time += ":0" + seconds;
+        else time += ":" + seconds;
+
+        return time;
     }
 }

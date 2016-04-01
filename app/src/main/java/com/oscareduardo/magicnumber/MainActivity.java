@@ -1,56 +1,59 @@
 package com.oscareduardo.magicnumber;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView textViewNumber, textViewPreviousNumber;
     private Machine machine = new Machine();
+    private FragmentHelper fragmentHelpers = new FragmentHelper(this);
+    private long timeElapsed;
     private int possibleNumber, magicNumber, tries;
-    private String possible;
+    private String possible, time, toastText;
+    private RelativeLayout relativeLayoutNumbers;
+    private TextView textViewNumber, textViewPreviousNumber;
     private Button buttonOne, buttonTwo, buttonThree, buttonFour, buttonFive, buttonSix,
             buttonSeven, buttonEight, buttonNine, buttonZero;
     private ImageButton buttonDelete, buttonReady, buttonErase;
-    private RelativeLayout relativeLayoutNumbers;
+    private Chronometer chronometer;
+    private ViewGroup viewGroup;
+    private Animation animation;
+    boolean firstTime;
+    SharedPreferences sharedPreferences;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textViewNumber = (TextView) findViewById(R.id.textViewNumber);
-        textViewPreviousNumber = (TextView) findViewById(R.id.textViewPreviousNumber);
+        viewGroup = (ViewGroup) findViewById(R.id.toast_layout_root);
 
-        magicNumber = machine.generateRandomNumber(100);
-        Log.i("Magic Number", "" + magicNumber);
+        sharedPreferences = getSharedPreferences("myData", Context.MODE_PRIVATE);
 
-        final TextView tv = (TextView) findViewById(R.id.textViewDeveloper);
+        firstTime = sharedPreferences.getBoolean("firtsTime", true);
 
-        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.demo);
-
-        tv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "OSCAR", Toast.LENGTH_SHORT).show();
-                animation.setDuration(2000);
-                tv.startAnimation(animation);
-            }
-        });
-
-        tries = 1;
+        toastText = getString(R.string.welcome);
+        fragmentHelpers.createCustomToast(getLayoutInflater(), viewGroup, toastText,
+                R.drawable.toast_background_welcome, R.drawable.ic_sentiment_satisfied, 1000);
 
         relativeLayoutNumbers = (RelativeLayout) findViewById(R.id.relativeLayoutNumbers);
-
+        chronometer = (Chronometer) findViewById(R.id.chronometer);
+        textViewNumber = (TextView) findViewById(R.id.textViewNumber);
+        textViewPreviousNumber = (TextView) findViewById(R.id.textViewPreviousNumber);
         buttonOne = (Button) findViewById(R.id.buttonOne);
         buttonOne.setOnClickListener(this);
         buttonTwo = (Button) findViewById(R.id.buttonTwo);
@@ -78,27 +81,51 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttonReady = (ImageButton) findViewById(R.id.buttonReady);
         buttonReady.setOnClickListener(this);
 
+        startGame(true);
 
+        fT(firstTime);
+    }
+
+    public void fT(boolean switchFT) {
+
+        if (switchFT) {
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            Log.e("Shared Preferences", "VIRGIN");
+            editor.putLong("bestTime", 0);
+            editor.putInt("lessTires", 0);
+            firstTime = false;
+            editor.putBoolean("firtsTime", firstTime);
+            editor.apply();
+        } else {
+            Log.e("Shared Preferences", "Not VIRGIN");
+        }
+    }
+
+    public void startGame(boolean switchChronometer) {
+        magicNumber = machine.generateRandomNumber(100);
+        Log.e("Magic Number", "" + magicNumber);
+        textViewNumber.setText("");
+        textViewPreviousNumber.setVisibility(View.GONE);
+        buttonErase.setVisibility(View.GONE);
+        tries = 1;
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        if (switchChronometer) chronometer.start();
     }
 
     @Override
     public void onClick(View v) {
         int idButton = v.getId();
         possible = textViewNumber.getText().toString();
-        final Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.demo);
-    animation.setDuration(1000);
-        textViewPreviousNumber.startAnimation(animation);
+        timeElapsed = (SystemClock.elapsedRealtime() - chronometer.getBase());
+
+        if (buttonErase.getVisibility() == View.GONE &&
+                textViewNumber.getText().toString().isEmpty()) {
+            animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fade_in);
+            buttonErase.setVisibility(View.VISIBLE);
+            buttonErase.startAnimation(animation);
+        }
 
         try {
-
-            if (possible.isEmpty()) {
-                buttonErase.setVisibility(View.GONE);
-                textViewPreviousNumber.setVisibility(View.GONE);
-            } else {
-                buttonErase.setVisibility(View.VISIBLE);
-                textViewPreviousNumber.setVisibility(View.VISIBLE);
-            }
-
             switch (idButton) {
                 case R.id.buttonOne:
                     textViewNumber.setText(possible + "1");
@@ -147,39 +174,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
 
                 case R.id.buttonDelete:
+                    if (buttonErase.getVisibility() == View.VISIBLE) {
+                        animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                                R.anim.fade_out);
+                        buttonErase.startAnimation(animation);
+                        buttonErase.setVisibility(View.GONE);
+                    }
                     textViewNumber.setText("");
+                    break;
 
                 case R.id.buttonReady:
-                    possibleNumber = Integer.parseInt(textViewNumber.getText().toString());
-
+                    possibleNumber = Integer.parseInt(possible);
                     boolean check = machine.checkMagicNumber(magicNumber, possibleNumber);
+                    String textPreviousNumber = getString(R.string.previousNumber) +
+                            " " +
+                            possibleNumber;
 
-                    textViewPreviousNumber.setText(
-                            getString(R.string.previousNumber) +
-                                    " " +
-                                    possibleNumber);
+                    animation = AnimationUtils.loadAnimation(getApplicationContext(),
+                            R.anim.fade_in);
+                    textViewPreviousNumber.setVisibility(View.VISIBLE);
+                    textViewPreviousNumber.setText(textPreviousNumber);
+                    textViewPreviousNumber.startAnimation(animation);
 
-                    if (!check) {
-                        textViewNumber.setText("");
-                        machine.getWhere(magicNumber, possibleNumber, v);
-                        tries++;
+                    if (check) {
+                        chronometer.stop();
+
+                        fragmentHelpers.createVictoryFragment(this, tries, timeElapsed, sharedPreferences).show();
+                        startGame(false);
                     } else {
+                        tries++;
                         textViewNumber.setText("");
-                        textViewPreviousNumber.setText(getString(R.string.previousNumber));
 
-                        FragmentHelper fragmentHelpers = new FragmentHelper(this);
-
-                        fragmentHelpers.createLoginDialogo(this, tries).show();
-                        machine.youWonMessage(v);
-                        magicNumber = machine.generateRandomNumber(100);
-                        tries = 1;
-                        buttonErase.setVisibility(View.GONE);
-                        relativeLayoutNumbers.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.colorPrimary));
+                        if (possibleNumber < magicNumber) {
+                            toastText = getString(R.string.toSmall);
+                            fragmentHelpers.createCustomToast(getLayoutInflater(), viewGroup,
+                                    toastText, R.drawable.toast_background_small,
+                                    R.drawable.ic_arrow_downward, 250);
+                        } else if (possibleNumber > magicNumber) {
+                            toastText = getString(R.string.toBig);
+                            fragmentHelpers.createCustomToast(getLayoutInflater(), viewGroup,
+                                    toastText, R.drawable.toast_background_big,
+                                    R.drawable.ic_arrow_upward, 250);
+                        }
                     }
 
-                    Log.i("Magic Number", "" + magicNumber);
-                    Log.i("Possible Number", "" + possibleNumber);
-                    Log.i("Boolean", "" + check);
                     break;
             }
         } catch (Exception e) {

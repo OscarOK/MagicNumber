@@ -3,18 +3,21 @@
     <string name="action_settings">Settings</string>
 
     <!-- Main Interface -->
+    <string name="welcome">Search for the magic number (1 to 100)</string>
     <string name="toBig">Very Big</string>
     <string name="toSmall">Very Small</string>
     <string name="previousNumber">Previous Number:</string>
     <string name="developer">Developed by OscarOK</string>
 
-    <!-- Victory Fragment Interface -->
+    <!-- Fragment Interface -->
     <string name="youWon">YOU WON!</string>
-    <string name="phrase">"Los records están para ser rotos."</string>
-    <string name="time">Time:</string>
-    <string name="tries">Tries:</string>
-    <string name="leaderboard">Leaderboard</string>
+    <string name="phrase">"Los records están para romperse"</string>
+    <string name="time">Time</string>
+    <string name="tries">Tries</string>
+    <string name="leaderboard">Best Record</string>
     <string name="again">Again</string>
+    <string name="thanks">Thanks</string>
+    <string name="best">Your best RECORD</string>
 
     <!-- Keyboard Numbers -->
     <string name="key_zero">0</string>

@@ -79,7 +79,7 @@
         <ImageButton
             android:id="@+id/buttonReady"
             style="@style/KeyboardRow.Key"
-            android:src="@drawable/ic_done" />
+            android:src="@drawable/ic_check_white" />
 
     </LinearLayout>
 

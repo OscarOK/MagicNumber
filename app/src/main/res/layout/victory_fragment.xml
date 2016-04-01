@@ -19,6 +19,7 @@
         android:id="@+id/textViewPhrase"
         style="@style/VictoryFragmentTextView"
         android:layout_below="@+id/textViewYouWon"
+        android:textColor="@android:color/secondary_text_light_nodisable"
         android:text="@string/phrase"
         android:textAllCaps="true" />
 
@@ -34,19 +35,44 @@
         android:layout_below="@+id/textViewTime"
         android:text="@string/tries" />
 
+    <LinearLayout
+        android:id="@+id/linearLayoutBoard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTries"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:textColor="@android:color/secondary_text_light_nodisable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/VictoryFragmentTextView"
+            android:text="@string/leaderboard"/>
+
+        <TextView
+            android:id="@+id/textViewBestTime"
+            android:textColor="@android:color/secondary_text_light_nodisable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/VictoryFragmentTextView"
+            android:text="@string/key_zero"/>
+
+        <TextView
+            android:id="@+id/textViewLessTries"
+            android:textColor="@android:color/secondary_text_light_nodisable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/VictoryFragmentTextView"
+            android:text="@string/key_zero"/>
+
+    </LinearLayout>
+
     <Button
         android:id="@+id/buttonAgain"
         style="@style/VictoryFragmentButton"
         android:layout_alignParentRight="true"
-        android:gravity="right|center"
-        android:layout_below="@+id/textViewTries"
+        android:layout_below="@+id/linearLayoutBoard"
         android:text="@string/again" />
-
-    <Button
-        android:id="@+id/buttonLeaderboard"
-        style="@style/VictoryFragmentButton"
-        android:gravity="left|center"
-        android:layout_below="@+id/textViewTries"
-        android:text="@string/leaderboard" />
 
 </RelativeLayout>
